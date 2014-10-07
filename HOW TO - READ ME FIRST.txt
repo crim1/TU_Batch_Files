@@ -1,0 +1,91 @@
+***************************************************************************************************************************
+Crim1 Batch files for Optmization automation
+Release 1.0 - Files:
+	Start Here.bat  	- easy menu to start with. Should be the starting point
+	MassGWtest.bat  	- called from the Start Here batch, will walk you through a GW optimization
+	MassBWLtest.bat 	- called from the Start Here batch, will walk you through a BRAWL optimization
+	gwPlayerTest.BGE.bat 	- called from the MassGWtest.bat, calls TUO program for GW with background effect
+	gwPlayerTest.bat	- called from the MassGWtest.bat, calls TUO program for GW without background effect
+	bwlPlayerTest.BGE.bat	- called from the MassBWLtest.bat, calls TUO program for GW with background effect
+	bwlPlayerTest.bat	- called from the MassBWLtest.bat, calls TUO program for GW without background effect
+	members.txt		- both guild war and brawl optimization batches look at this list to determine who to test
+	SOURCE.txt		- Enemy deck sets
+
+***************************************************************************************************************************
+Features:
+	The guild war and brawl optimizations are designed to be mass testing tools. They will look at the list of names in
+	the members.txt file and optimize every person on that list. This list can be 1 name, or 50, or 100. Each member to 
+	be tested must have an inventory file in the data directory with their name (matching the entry in members.txt). 
+	The batch will ask if you want to update members.txt each time you are setting up an optimization run.
+		NOTE: Do not leave a blank line at the end of the members.txt
+
+	The optimization batch files will ask for the following:
+		- A background effect (or none)
+		- how many threads to run with (4 is default, 6 to 8 for an i7 computer if you want to use more power)
+		- the climb amount
+		NOte: Brawl Optimizations are done in ORDERED mode to produce optimal results but this takes longer to run
+			I recommend no more than 1000 for ordered brawl but you can go higher for an overnight run
+		- Enemy sets:
+			*220K - toughest set
+			*215K - broader but still tough
+			*210K - "Last Generation" of tough sets
+		Note: I will be adding guild specific gauntlets as we approach the guild war
+
+	The optimization batch will look at the current deck of the player in their inventory:
+		//Current Deck: Commander, Card 1, Card 2, Card 3, etc
+	And place this into the customdecks.txt file. The batch knows enough to not repeat names so there should be no 
+	overlap.
+
+	The output of each Brawl and Guild War are text files in a comma seperated format with a header row. Both are easy
+	to copy/paste into a spreadsheet. I may consider updating the files from .txt to .csv so the conversion to excel is
+	even easier.
+***************************************************************************************************************************
+How to use:
+	Any file ending in .bat should be located in the same directory as the TUO optimizer program
+	SOURCE.txt should be located in the data directory
+	members.txt should be located in a folder called members which you will need to create in the data directory
+	All player inventory files should be located in the data directory
+
+	Once all this is in place, you should just need to run the Start Here.bat file
+	Note: I used "relative paths" so you don't need to update your directories or anything in the batch. That said, 
+		people have had path issues before because of naming. Please let me know if anything like that comes up.
+***************************************************************************************************************************
+Setting up an inventory file:
+	The player's name isn't necessary, it's just a reference and is commented out
+	The current deck is necessary as the batch will insert it into the customdecks.txt and TUO requires it there 
+		At least the way i have it running. Don't worry, it won't overlap
+	I ask people to insert an //OR when they have materials that conflict. For example, if i have 4 Aegis i can make
+		Sculpted Aegis or 2 Steel Rams so I would ask them to do this:
+			Sculpted Aegis
+			//OR
+			Steel Ram (2)
+		If the optimization then shows me that both happen to be included in the player's best deck, I run 2 
+		optimizations to see which score better. Eventually I may be able to think of a programatic solution
+		but not yet.
+Sample Inventory file, to be named: Crim1.txt - the members.txt file would just say: Crim1
+
+//Crim1: 
+Halcyon
+Tabitha
+Barracus
+Typhon Vex
+Dracorex
+Petrisis
+Constantine
+Alaric
+Nexor
+Krellus
+//Current Deck: Halcyon, Tundra MK3, Octane's Bulwark, Auger Ream, Hephatat Stoic, Sacred Sanctuary, Bane of Truth, Dreamhaunter
+Sacred Sanctuary (2)
+Trampling Anvil
+Tazerious
+Steel Ram (3)
+//OR
+Auger Ream 
+Bane of Truth
+Tundra MK3
+Scorched Hellwing
+
+	NOTE: When copy/pasting from a google spreadsheet, watch out for quotation marks at the start and end of the inventory list
+		And watch out for tab spaces like this -->	tada	more	space	
+		These cause a TUO to crash
