@@ -2,13 +2,19 @@
 
 set _home=%~dp0
 set _dmembers=%~dp0data/members
-echo Date and Time, Player, Effect, Win rate, Commander, Card 1, Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, Card 8, Card 9, Card 10>>"Brawl Results".txt
-set /p _climb=Set the climb (recommended not more than 1000 unless running overnight): 
+
+echo Date and Time, Player, Effect, Your Fortress, Enemy Fortress, Win rate, Commander, Card 1, Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, Card 8, Card 9, Card 10>>"Guild War".txt
+
+Set /p mNum=Set the member file number (1 - 4):
+REM set /p _climb=Set the climb (recommended not more than 1000 unless running overnight): 
+set _climb=5000
 Echo.
-set /p _enemy=Set the enemy set or deck: 
+REM set /p _enemy=Set the enemy set or deck: 
+set _enemy=220K
 Echo.
 set /p _threads=Set the amount of Threads to run with: 
 Echo.
+::ECHO Temporarily, this version does not look for a battle ground effect.
 cls
 ECHO Select a Battle Ground Effect
 Echo 1. None
@@ -38,9 +44,11 @@ Echo 22. Weaken all X
 Echo 23. Rally all X
 Echo 24. Reaping X (new skill for guild war on Oct 17th)
 Echo ----------------------------------------
-set /P BGE=Enter the number of the BGE you'd like to use.... 
-pause
+REM set /P BGE=Enter the number of the BGE you'd like to use.... 
+REM pause
+set BGE=24
 Cls
+
 IF %BGE%==1 (
 	GOTO GUILD
 	)
@@ -136,8 +144,7 @@ IF %BGE%==24 (
 	set NBGE=Reaping 
 	GOTO BGEVALUE
 	)
-	
-	
+
 Echo.
 :BGEVALUE
 cls
@@ -155,18 +162,20 @@ echo.>>"%~dp0data"\customdecks.txt
 
 cd %_dmembers%
 
-IF EXIST members.txt (
-	Set /p _edit=Do you want to edit the list of guild members? Enter Y or N: 
+IF EXIST members%mNum%.txt (
+	REM Set /p _edit=Do you want to edit the list of guild members? Enter Y or N: 
+	echo made it here
+	pause
 	) ELSE (
-	Echo Please create the members.txt file by entering the names that match inventory file names. The notepad will now launch...
-	break>members.txt
-	Start members.txt
+	Echo Please create the members%mNum%.txt file by entering the names that match inventory file names. The notepad will now launch...
+	break>members%mNum%.txt
+	Start members%mNum%.txt
 	)
 
-if /I %_edit%==Y (
-	start members.txt
-	pause
-	)
+REM if /I %_edit%==Y (
+	REM start members%mNum%.txt
+	REM pause
+	REM )
 
 IF %BGE% NEQ 1 (
 	GOTO WITHBGE
@@ -177,12 +186,12 @@ IF %BGE% NEQ 1 (
 ::Using an ARRAY to read in the players. Now we get offsets :) instead of individual variables... so much cleaner
 setlocal ENABLEDELAYEDEXPANSION
 set pCount=0
-for /F "tokens=*" %%A in (members.txt) do (
+for /F "tokens=*" %%A in (members%mNum%.txt) do (
 	SET /A pcount=!pcount! + 1
     set player[!pcount!]=%%A
 	echo !player[%pCount%]!
 	cd %_home%
-	call bwlPlayerTest.bat
+	call gwPlayerTest.bat
 	cd %_dmembers%
 )
 EndLocal
@@ -193,12 +202,12 @@ GOTO END
 ::Using an ARRAY to read in the players. Now we get offsets :) instead of individual variables... so much cleaner
 setlocal ENABLEDELAYEDEXPANSION
 set pCount=0
-for /F "tokens=*" %%A in (members.txt) do (
+for /F "tokens=*" %%A in (members%mNum%.txt) do (
 	SET /A pcount=!pcount! + 1
     set player[!pcount!]=%%A
 	echo !player[%pCount%]!
 	cd %_home%
-	call bwlPlayerTest.BGE.bat
+	call gwPlayerTest.BGE.bat
 	cd %_dmembers%
 )
 EndLocal

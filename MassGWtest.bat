@@ -3,7 +3,7 @@
 set _home=%~dp0
 set _dmembers=%~dp0data/members
 
-echo Date and Time, Player, Effect, Your Fortress, Enemy Fortress, OP Deck, Win rate, Commander, Card 1, Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, Card 8, Card 9, Card 10>>"Guild War".txt
+echo Date and Time, Player, Effect, Your Fortress, Enemy Fortress, Win rate, Commander, Card 1, Card 2, Card 3, Card 4, Card 5, Card 6, Card 7, Card 8, Card 9, Card 10>>"Guild War".txt
 
 set /p _climb=Set the climb (recommended not more than 1000 unless running overnight): 
 Echo.
@@ -36,6 +36,10 @@ Echo 17. Enhance all Rally X
 Echo 18. Enhance all Siege X
 Echo 19. Enhance all Strike X
 Echo 20. Enhance all Weaken X
+Echo 21. Heal all X
+Echo 22. Weaken all X
+Echo 23. Rally all X
+Echo 24. Reaping X (new skill for guild war on Oct 17th)
 Echo ----------------------------------------
 set /P BGE=Enter the number of the BGE you'd like to use.... 
 pause
@@ -118,6 +122,22 @@ IF %BGE%==19 (
 	)
 IF %BGE%==20 (
 	set NBGE=Enhance all Weaken 
+	GOTO BGEVALUE
+	)
+IF %BGE%==21 (
+	set NBGE=Heal all 
+	GOTO BGEVALUE
+	)
+IF %BGE%==22 (
+	set NBGE=Weaken all 
+	GOTO BGEVALUE
+	)
+IF %BGE%==23 (
+	set NBGE=Rally all 
+	GOTO BGEVALUE
+	)
+IF %BGE%==24 (
+	set NBGE=Reaping 
 	GOTO BGEVALUE
 	)
 

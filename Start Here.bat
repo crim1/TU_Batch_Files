@@ -8,6 +8,7 @@ ECHO ...........................................................................
 ECHO.
 ECHO 			1 - BRAWL (Ordered) Gauntlet
 ECHO 			2 - Guild War Gauntlet
+ECHO 			3 - SIMPLE Guild War Gauntlet - For Oct 17th
 ECHO 			Q - Quit Batch
 ECHO.
 
@@ -28,6 +29,17 @@ IF %C%==1 (
 IF %C%==2 (
 	CLS
 	CALL "MassGWtest.bat"
+	CLS
+	ECHO ~~~~~~~~~~~~~~~~~~~~~~~~Guild War Gauntlet COMPLETE~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	ECHO ...............................................................................
+	ECHO The Guild War Gauntlet has finished.
+	ECHO ...............................................................................
+	pause
+	GOTO BRAWL
+	)
+IF %C%==3 (
+	CLS
+	CALL "SimpleMassGWtest.bat"
 	CLS
 	ECHO ~~~~~~~~~~~~~~~~~~~~~~~~Guild War Gauntlet COMPLETE~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	ECHO ...............................................................................
